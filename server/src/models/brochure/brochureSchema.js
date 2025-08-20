@@ -3,48 +3,10 @@ const Schema = mongoose.Schema;
 
 const Brochureschema = new Schema(
   {
-    title: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    description: {
-      type: String,
-      // required: true,
-      trim: true,
-    },
-    detail: {
-      type: String,
-      trim: true,
-    },
-    pdf: {
-      type: String,
-    },
-    quote: {
-      type: String,
-      trim: true,
-    },
-    honorName: {
-      type: String,
-      trim: true,
-    },
-    honorDesignation: {
-      type: String,
-      trim: true,
-    },
-    image1: {
-      type: String,
-    },
-    image2: {
-      type: String,
-    },
-    video: {
-      type: String,
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
+    title: { type: String, required: true, trim: true }, // Heading
+    description: { type: String, trim: true },
+    companyIntroduction: { type: String, trim: true },
+    successStory: { type: String, trim: true },
   },
   { timestamps: true }
 );

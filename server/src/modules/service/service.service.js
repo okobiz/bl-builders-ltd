@@ -28,8 +28,8 @@ class ServiceService extends BaseService {
     return serviceData;
   }
 
-  async getAllService() {
-    return await this.#repository.findAll();
+  async getAllService(filter) {
+    return await this.#repository.findAll(filter);
   }
 
   async getServiceWithPagination(payload) {

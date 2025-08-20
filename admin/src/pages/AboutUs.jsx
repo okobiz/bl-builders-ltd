@@ -63,7 +63,6 @@ const AboutUs = () => {
   };
 
   const handleEditAboutUs = (aboutUs) => {
-    console.log(aboutUs, "about us from handle edit click........");
     setEditingAboutUs(aboutUs);
     setIsModalVisible(true);
     form.setFieldsValue({

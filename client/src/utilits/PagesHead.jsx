@@ -11,6 +11,8 @@ const PagesHead = ({ title, subTitle }) => {
   const headImage = banners?.data?.find(
     (banner) => banner.type === "HEAD" && banner.isActive === true
   )?.image;
+
+
   return (
     <div
       className="relative bg-cover bg-center"

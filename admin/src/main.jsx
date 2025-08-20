@@ -26,6 +26,7 @@ import Teams from "./pages/Teams";
 import Careers from "./pages/Careers";
 import JobApplicants from "./pages/JobApplicant";
 import LatestGallerys from "./pages/LatestGallery";
+import Client from "./pages/Client";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,7 @@ const router = createBrowserRouter([
       // { path: "events", element: <Events /> },
       { path: "careers", element: <Careers /> },
       { path: "our-team", element: <Teams /> },
+      { path: "our-client", element: <Client /> },
       { path: "job-applicants", element: <JobApplicants /> },
     ],
   },

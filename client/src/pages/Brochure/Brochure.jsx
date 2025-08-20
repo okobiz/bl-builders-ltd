@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
-import PagesHead from "../../utilits/PagesHead";
-import TabTitle from "../../utilits/TabTitle";
 import { baseUrl } from "../../redux/api/baseApi";
-import { FaQuoteLeft } from "react-icons/fa6";
-
-import { motion } from "framer-motion";
 import { useGetBrochuresQuery } from "../../redux/features/brochure/brochureApi";
-import { BsBoxArrowInDownRight } from "react-icons/bs";
+import { useGetClientsQuery } from "../../redux/features/team copy/clientApi";
+import { useGetTeamsQuery } from "../../redux/features/team/teamApi";
 
 const SkeletonLoader = () => (
   <div className="animate-pulse">
@@ -26,193 +22,89 @@ const SkeletonLoader = () => (
 );
 
 export const Brochure = () => {
-  const { data: brochures, isLoading } = useGetBrochuresQuery("");
-  const [showFullDescription, setShowFullDescription] = useState(false);
-  const [showFullDatails, setShowFullDatails] = useState(false);
+  const { data: brochures, isLoading: isBrochureLoading } =
+    useGetBrochuresQuery("");
+  const { data: teams, isLoading: isTeamLoading } = useGetTeamsQuery("");
+  const { data: clients, isLoading: isClientLoading } = useGetClientsQuery("");
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const extractYouTubeId = (url) => {
-    const regex =
-      /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/;
-    const match = url.match(regex);
-    return match ? match[1] : null;
-  };
+  if (isBrochureLoading || isTeamLoading || isClientLoading) {
+    return <SkeletonLoader />;
+  }
+
+  console.log(brochures);
 
   return (
-    <div>
-      <TabTitle title={"Brochure"} />
-      <PagesHead title="Our Brochure" subTitle="Our Brochure" />
-      <motion.div
-        initial={{ y: 50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="container"
-      >
-        <div>
-          {isLoading ? (
-            <SkeletonLoader />
-          ) : (
-            brochures?.data?.map((brochure) => {
-              const video = extractYouTubeId(brochure.video);
-              const description =
-                brochure?.description || "brochure description";
-              const truncatedDescription = description.slice(0, 200);
-              const detail = brochure?.detail || "brochure description";
-              const truncatedDetail = detail.slice(0, 200);
-              return (
-                <div key={brochure._id}>
-                  <div className="grid lg:grid-cols-2 gap-4">
-                    <div>
-                      <h2 className="text-lg font-semibold text-[#244436] capitalize">
-                        {brochure.title}
-                      </h2>
-                      {/* <p className="mt-4 leading-relaxed text-[#262626]/80">
-                        {brochure.description}
-                      </p> */}
-                      <div className="cursor-pointer group">
-                        <p className="mt-4 leading-relaxed text-[#262626]/80">
-                          {showFullDescription
-                            ? description
-                            : truncatedDescription}
-                        </p>
-                        {description.length > 200 && (
-                          <button
-                            onClick={() =>
-                              setShowFullDescription(!showFullDescription)
-                            }
-                            className="text-[#244436] opacity-0 group-hover:opacity-100 duration-300"
-                          >
-                            {showFullDescription ? (
-                              <div className="flex items-center gap-1">
-                                <BsBoxArrowInDownRight /> less
-                              </div>
-                            ) : (
-                              <div className="flex items-center gap-1">
-                                <BsBoxArrowInDownRight /> more
-                              </div>
-                            )}
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                    <div className="group duration-300">
-                      {/* <p className="leading-relaxed text-[#262626]/80 font-medium">
-                        {brochure.detail}
-                      </p> */}
-                      <div className="cursor-pointer group">
-                        <p className=" leading-relaxed text-[#262626]/80">
-                          {showFullDatails ? detail : truncatedDetail}
-                        </p>
-                        {detail.length > 200 && (
-                          <button
-                            onClick={() => setShowFullDatails(!showFullDatails)}
-                            className="text-[#244436] opacity-0 group-hover:opacity-100 duration-300"
-                          >
-                            {showFullDatails ? (
-                              <div className="flex items-center gap-1">
-                                <BsBoxArrowInDownRight /> less
-                              </div>
-                            ) : (
-                              <div className="flex items-center gap-1">
-                                <BsBoxArrowInDownRight /> more
-                              </div>
-                            )}
-                          </button>
-                        )}
-                      </div>
+    <div className="px-5 md:w-[90%] mx-auto py-10">
+      {/* ✅ Brochure Section */}
+      <section>
+        {brochures?.data?.map((brochure) => (
+          <div key={brochure._id} className="mb-10">
+            <h2 className="text-2xl md:text-3xl xl:text-4xl font-bold text-[#244436] mb-4 text-center">
+              {brochure.title}
+            </h2>
+            <p className="text-gray-700 text-justify">{brochure.description}</p>
+            <p className="mt-4 text-gray-600 text-justify">
+              {brochure.companyIntroduction}
+            </p>
+            <p className="mt-4 text-gray-600 text-justify">
+              {brochure.successStory}
+            </p>
+          </div>
+        ))}
+      </section>
 
-                      <div className="mt-[20px] duration-300">
-                        <a
-                          href={
-                            brochure?.pdf ? baseUrl + brochure.pdf : undefined
-                          }
-                          download={!!brochure?.pdf}
-                          target={brochure?.pdf ? "_blank" : undefined}
-                          className={`relative inline-flex items-center origin-right gap-2 py-3 px-4 rounded font-rajdhani overflow-hidden group ${
-                            brochure?.pdf
-                              ? "bg-[#244436] text-white cursor-pointer"
-                              : "bg-gray-300 text-gray-500 cursor-not-allowed"
-                          }`}
-                          aria-disabled={!brochure?.pdf}
-                        >
-                          <span className="relative z-10 tracking-widest lg:text-base text-sm">
-                            Discover More
-                          </span>
-                          {brochure?.pdf && (
-                            <div className="absolute inset-0 w-full h-full bg-[#65e09d] rounded origin-right transform scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-300 ease-in-out"></div>
-                          )}
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-2 mt-12">
-                    <div className="bg-[#F5FDF8] px-8 py-8 rounded">
-                      <p className="text-xl text-[#244436]">
-                        <FaQuoteLeft />
-                      </p>
-                      <div className="mt-4">
-                        <p className="text-[#262626]/70 line-clamp-4">
-                          {brochure.quote}
-                        </p>
-                        <div className="mt-2">
-                          <h2 className="text-lg font-medium">
-                            {brochure.honorName}
-                          </h2>
-                          <p className="text-sm text-[#262626]/70 mt-1">
-                            {brochure.honorDesignation}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="lg:h-[250px] xl:h-[250px] h-[250px] md:h-[320px] border rounded p-2 overflow-hidden">
-                      <img
-                        className="w-full h-full rounded hover:scale-110 duration-500 "
-                        src={baseUrl + brochure.image1}
-                        alt=""
-                      />
-                    </div>
-                    <div className="lg:h-[250px] xl:h-[250px] h-[250px] md:h-[320px] border rounded p-2 overflow-hidden">
-                      <img
-                        className="w-full h-full rounded hover:scale-110 duration-500"
-                        src={baseUrl + brochure.image2}
-                        alt=""
-                      />
-                    </div>
-                  </div>
-
-                  {
-                    video && (
-                      <div className="border relative group rounded cursor-pointer mt-12">
-                        <div className="relative lg:h-[400px] md:h-[300px] h-[280px]  w-full bg-[#262626] rounded overflow-hidden">
-                          <iframe
-                            className="h-full w-full object-cover rounded duration-300"
-                            title={`Video player for ${brochure._id}`}
-                            src={`https://www.youtube.com/embed/${video}`}
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                          ></iframe>
-                        </div>
-                      </div>
-                    )
-                    // : (
-                    //   <video
-                    //     className="h-full w-full object-cover rounded duration-300"
-                    //     src={baseUrl + brochure.video}
-                    //     controls
-                    //     aria-label="Video player"
-                    //   ></video>
-                    // )
-                  }
-                </div>
-              );
-            })
-          )}
+      {/* ✅ Team Section */}
+      <section className="mt-12">
+        <h2 className=" font-semibold text-[#244436] mb-6 text-2xl md:text-3xl xl:text-4xl text-center">
+          Our Team
+        </h2>
+        <div className="grid md:grid-cols-3 xl:grid-cols-4 gap-6">
+          {teams?.data?.map((member) => (
+            <div key={member._id} className="bg-white rounded-lg shadow p-4">
+              <div className="relative w-full lg:h-[300px] md:h-[300px] h-[250px] overflow-hidden rounded-t-lg">
+                <img
+                  src={baseUrl + member.image}
+                  alt={member.name}
+                  className="w-full h-full object-fill transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#244436]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-lg"></div>
+              </div>
+              <h3 className="text-lg font-semibold mt-4 ">{member.name}</h3>
+              <p className="text-sm text-gray-600">{member.designation}</p>
+              <p className="text-gray-700 mt-2">{member.details}</p>
+            </div>
+          ))}
         </div>
-      </motion.div>
+      </section>
+
+      {/* ✅ Client Section */}
+      <section className="mt-12">
+        <h2 className=" font-semibold text-[#244436] mb-6 text-2xl md:text-3xl xl:text-4xl text-center">
+          Our Clients
+        </h2>
+        <div className="grid md:grid-cols-4 gap-6">
+          {clients?.data?.map((client) => (
+            <div key={client._id} className="bg-white rounded-lg shadow p-4">
+              <div className="relative w-full lg:h-[300px] md:h-[300px] h-[250px] overflow-hidden rounded-t-lg">
+                <img
+                  src={baseUrl + client.image}
+                  alt={client.name}
+                  className="w-full h-full object-fill transition-transform duration-300 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#244436]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-lg"></div>
+              </div>
+              <h3 className="text-lg font-semibold mt-4">{client.name}</h3>
+              <p className="text-sm text-gray-600">{client.designation}</p>
+              <p className="text-gray-700 mt-2">{client.details}</p>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 };

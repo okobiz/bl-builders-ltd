@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import logo from "../../assets/logo/eco_comfort.png";
+import Logo from "../../../src/assets/logo/logo.jpg"
 import { navItems } from "../../utilits/navItems";
 import SocialIcon from "../SocialIcon/SocialIcon";
 import Map from "../../utilits/Map";
@@ -16,7 +16,7 @@ const Footer = () => {
 
   return (
     <div>
-      <div className="relative">
+      <div className="relative ">
         {/* Background Image */}
         <div
           className="absolute inset-0"
@@ -32,11 +32,11 @@ const Footer = () => {
         <div className="absolute inset-0 bg-[#262626]/20"></div>
 
         {/* Content Section */}
-        <div className="relative py-12 2xl:px-80 xl:px-28 lg:px-20 md:px-12 px-8 mx-auto text-white">
+        <div className="relative py-12 mx-auto text-white px-5 md:w-[90%]">
           <div className="grid lg:grid-cols-3">
             <div className="flex flex-col gap-4 text-[#fff]/70 mt-10 xl:ml-0 lg:ml-12">
               <img
-                src={logo}
+                src={Logo}
                 alt="Logo"
                 className="h-20 w-40 bg-gray-200 p-2 rounded-lg"
               />
@@ -78,14 +78,14 @@ const Footer = () => {
                 <FaXmark className="text-[#262626]" />
               </div>
               <h2 className="lg:text-xl text-base">
-                Right Now Eco Comfort Socks Website is Under Construction
+                Right Now BL Builders Ltd Website is Under Construction
               </h2>
             </div>
           )} */}
         </div>
       </div>
       <div className="bg-[#2e3b2c] py-4 flex flex-wrap items-center justify-between 2xl:px-80 xl:px-28 lg:px-20 md:px-12 px-8 mx-auto text-[#fff]">
-        <p>ECO COMFORT SOCKS LIMITED © 2025. All Rights Reserved.</p>
+        <p>BL BUILDERS LTD © 2025. All Rights Reserved.</p>
         <p className="flex gap-1">
           <span>Developed by</span>
           <a

@@ -8,7 +8,6 @@ const Main = () => {
     <div className="overflow-hidden">
       <NavBar></NavBar>
       <Outlet></Outlet>
-
       <Footer></Footer>
       <ScrollToBottomToTop></ScrollToBottomToTop>
     </div>

@@ -6,7 +6,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { menuItems } from "../shared/routeItems";
 import { logoutUser } from "../utils/Slices/userSlices";
-import logo from "../assets/eco logo-01.png";
+import logo from "../assets/logo/logo.jpg";
 
 const { Header, Sider, Content } = Layout;
 
@@ -15,6 +15,7 @@ const MainLayout = () => {
   const [selectedMenuItem, setSelectedMenuItem] = useState(
     localStorage.getItem("selectedMenuItem") || "1"
   );
+  
   const [openKeys, setOpenKeys] = useState([]); // for handling open submenus
   const [hideLayout, setHideLayout] = useState(false);
   const dispatch = useDispatch();
@@ -63,13 +64,13 @@ const MainLayout = () => {
           className="bg-secondary h-screen"
         >
           <div
-            className={`text-black mx-auto font-bold text-2xl text-center rounded-full mt-10 mb-5 ${
+            className={`text-black mx-auto font-bold text-2xl text-center rounded-full mt-10 mb-10 ${
               collapsed
                 ? `w-[50px] h-[20px] leading-[50px]`
-                : `w-[110px] h-[70px] leading-[110px]`
+                : `w-[70px] h-[70px] leading-[110px]`
             }`}
           >
-            <img src={logo} alt="Logo" />
+            <img className=" rounded" src={logo} alt="Logo" />
           </div>
           <Menu
             theme="light"

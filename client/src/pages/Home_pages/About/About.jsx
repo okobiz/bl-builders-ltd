@@ -6,7 +6,7 @@ import mission from "../../../assets/image/mission.png";
 import vision from "../../../assets/image/vission.png";
 import value from "../../../assets/image/value.png";
 import FixModals from "../../../utilits/FixModals";
-import A1 from "../../../assets/about/a1.jpg"
+
 
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -14,9 +14,6 @@ import { useEffect } from "react";
 
 const About = () => {
   const { data } = useGetAboutQuery("");
-
-  console.log(data);
-  
 
   // Separate animation controls for each section
   const missionControls = useAnimation();
@@ -78,148 +75,119 @@ const About = () => {
   return (
     <div
       id="about"
-      className="xl:py-32 lg:py-32 md:py-24 py-20 md:w-[90%] mx-auto overflow-hidden"
+      className="xl:py-32 lg:py-32 md:py-24 py-20 mx-auto overflow-hidden px-5 md:w-[90%]"
     >
-      <div>
-        {data?.data?.slice(0, 1).map((about, index) => (
-          <div key={about._id} className="w-full">
-            <div className="flex lg:flex-row  flex-col-reverse lg:justify-start justify-center lg:items-start items-center 2xl:gap-20 lg:gap-12 gap-12 w-full">
-              <motion.div
-                ref={ref}
-                initial="hidden"
-                variants={cardVariant2}
-                animate={imageControls}
-                custom={index}
-                className="lg:w-2/4"
-              >
-                <img className="rounded" src={A1} alt="" />
-              </motion.div>
-              <div className="lg:w-3/4 xl:mt-0 lg:mt-0 mt-4">
-                <div>
-                  <SectionHead
-                    subTitle="ABOUT US"
-                    title={
-                      <span>
-                        {about.title.split(" ").slice(0, -1).join(" ")}{" "}
-                        <span className="text-[#244436]">
-                          {about.title.split(" ").slice(-1)}
-                        </span>
-                      </span>
-                    }
-                  ></SectionHead>
+      {data?.data?.slice(0, 1).map((about, index) => (
+        <div key={about._id} className="w-full">
+          <div className="flex flex-col lg:flex-row items-center lg:items-end gap-12 2xl:gap-4">
+            {/* Image */}
+            <motion.div
+              ref={ref}
+              initial="hidden"
+              variants={cardVariant2}
+              animate={imageControls}
+              custom={index}
+              className="lg:w-2/5 w-full"
+            >
+              <img
+                src={baseUrl + about?.image}
+                alt={about.title}
+                className="rounded-xl shadow-lg"
+              />
+            </motion.div>
 
-                  <div className="mt-4">
-                    {/* details function */}
-                    <div className="flex flex-col gap-3 text-[#262626]/70">
-                      <p>{about.details.slice(0, 240)}</p>
-                      <p className="relative">
-                        {about.details.slice(240, 419) ||
-                          "Let's Talk about Company"}
-                        <FixModals type="about" about={about}></FixModals>
-                      </p>
-                    </div>
+            {/* Content */}
+            <div className="lg:w-3/5 w-full">
+              <SectionHead
+                subTitle="ABOUT US"
+                title={
+                  <span>
+                    {about.title.split(" ").slice(0, -1).join(" ")}{" "}
+                    <span className="text-[#244436]">
+                      {about.title.split(" ").slice(-1)}
+                    </span>
+                  </span>
+                }
+              />
 
-                    {/* mission, vision, value */}
-                    <div className="flex flex-col gap-3 mt-8 relative">
-                      {/* mission */}
-                      <motion.div
-                        ref={ref}
-                        initial="hidden"
-                        animate={missionControls}
-                        variants={cardVariants}
-                        custom={index}
-                        className="bg-[#4F6F5E]/50 relative overflow-hidden group cursor-pointer border flex lg:flex-row md:flex-row flex-col items-center gap-2 xl:rounded-full lg:rounded-full md:rounded-full rounded px-4 py-2"
-                      >
-                        <img
-                          src={mission}
-                          alt="mission"
-                          className="z-[3] w-28 lg:flex md:flex hidden"
-                        />
+              {/* Short Description */}
+              <div className="mt-4 text-[#262626]/80 space-y-3">
+                <p>{about.details.slice(0, 240)}</p>
+                <p className="relative">
+                  {about.details.slice(240, 419) || "Let's Talk about Company"}
+                  <FixModals type="about" about={about} />
+                </p>
+              </div>
 
-                        <div className="text-[#262626]/80 group  duration-300 z-[3]">
-                          <p className="">
-                            <span className="font-semibold group-hover:text-[#fff]">
-                              Mission:{" "}
-                            </span>
-                            <span className="group-hover:text-[#fff]">
-                              {about.mission.slice(0, 250)}
-                            </span>
-                          </p>
-                          {about.mission.length > 250 && (
-                            <FixModals type="mission" about={about}></FixModals>
-                          )}
-                        </div>
-                        <div className="absolute inset-0 w-full h-full bg-[#244436] xl:rounded-full lg:rounded-full md:rounded-full rounded origin-right transform scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-700 ease-in-out z-[2]"></div>
-                      </motion.div>
+              {/* Mission / Vision / Value Cards */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                {/* Mission */}
+                <motion.div
+                  ref={ref}
+                  initial="hidden"
+                  animate={missionControls}
+                  variants={cardVariants}
+                  custom={index}
+                  className="group relative bg-[#4F6F5E]/20 rounded-xl p-6 flex flex-col items-start hover:bg-[#244436] transition-all duration-500 cursor-pointer"
+                >
+                  <img src={mission} alt="mission" className="w-20 mb-4" />
+                  <h4 className="font-semibold text-[#244436] group-hover:text-white mb-2">
+                    Mission
+                  </h4>
+                  <p className="text-[#262626]/80 group-hover:text-white">
+                    {about.mission.slice(0, 250)}
+                  </p>
+                  {about.mission.length > 250 && (
+                    <FixModals type="mission" about={about} />
+                  )}
+                </motion.div>
 
-                      {/* Vision */}
+                {/* Vision */}
+                <motion.div
+                  ref={ref}
+                  initial="hidden"
+                  animate={visionControls}
+                  variants={cardVariants}
+                  custom={index + 1}
+                  className="group relative bg-[#DDEBB0]/20 rounded-xl p-6 flex flex-col items-start hover:bg-[#244436] transition-all duration-500 cursor-pointer"
+                >
+                  <img src={vision} alt="vision" className="w-20 mb-4" />
+                  <h4 className="font-semibold text-[#244436] group-hover:text-white mb-2">
+                    Vision
+                  </h4>
+                  <p className="text-[#262626]/80 group-hover:text-white">
+                    {about.vision.slice(0, 250)}
+                  </p>
+                  {about.vision.length > 250 && (
+                    <FixModals type="vision" about={about} />
+                  )}
+                </motion.div>
 
-                      <motion.div
-                        ref={ref}
-                        initial="hidden"
-                        animate={visionControls}
-                        variants={cardVariants}
-                        custom={index + 1}
-                        className="hover:z-10 bg-[#DDEBB0]/50 relative overflow-hidden group cursor-pointer border flex items-center gap-2 xl:rounded-full lg:rounded-full md:rounded-full rounded px-4 py-2"
-                      >
-                        <img
-                          src={vision}
-                          alt="vision"
-                          className="w-28 lg:flex md:flex hidden"
-                        />
-                        <div className=" text-[#262626]/80 group  duration-300">
-                          <p className="">
-                            <span className="font-semibold group-hover:text-[#fff]">
-                              Vision:{" "}
-                            </span>
-                            <span className="group-hover:text-[#fff]">
-                              {about.vision.slice(0, 250)}
-                            </span>
-                          </p>
-                          {about.vision.length > 250 && (
-                            <FixModals type="vision" about={about}></FixModals>
-                          )}
-                        </div>
-                        <div className="absolute inset-0 -z-10 w-full h-full bg-[#244436] xl:rounded-full lg:rounded-full md:rounded-full rounded origin-right transform scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-700 ease-in-out"></div>
-                      </motion.div>
-
-                      {/* value */}
-                      <motion.div
-                        ref={ref}
-                        initial="hidden"
-                        animate={valueControls}
-                        variants={cardVariants}
-                        custom={index + 2}
-                        className="hover:z-10 bg-[#A6C291]/50 relative overflow-hidden group cursor-pointer border flex items-center gap-2 xl:rounded-full lg:rounded-full md:rounded-full rounded px-4 py-2"
-                      >
-                        <img
-                          src={value}
-                          alt="value"
-                          className="w-28 lg:flex md:flex hidden"
-                        />
-                        <div className="text-[#262626]/80 group  duration-300">
-                          <p className="">
-                            <span className="font-semibold group-hover:text-[#fff]">
-                              Value:{" "}
-                            </span>
-                            <span className="group-hover:text-[#fff]">
-                              {about.value.slice(0, 250)}
-                            </span>
-                          </p>
-                          {about.value.length > 250 && (
-                            <FixModals type="value" about={about}></FixModals>
-                          )}
-                        </div>
-                        <div className="absolute -z-10 inset-0 w-full h-full bg-[#244436] xl:rounded-full lg:rounded-full md:rounded-full rounded origin-right transform scale-x-0 group-hover:scale-x-100 group-hover:origin-left transition-transform duration-700 ease-in-out"></div>
-                      </motion.div>
-                    </div>
-                  </div>
-                </div>
+                {/* Value */}
+                <motion.div
+                  ref={ref}
+                  initial="hidden"
+                  animate={valueControls}
+                  variants={cardVariants}
+                  custom={index + 2}
+                  className="group relative bg-[#A6C291]/20 rounded-xl p-6 flex flex-col items-start hover:bg-[#244436] transition-all duration-500 cursor-pointer"
+                >
+                  <img src={value} alt="value" className="w-20 mb-4" />
+                  <h4 className="font-semibold text-[#244436] group-hover:text-white mb-2">
+                    Value
+                  </h4>
+                  <p className="text-[#262626]/80 group-hover:text-white">
+                    {about.value.slice(0, 250)}
+                  </p>
+                  {about.value.length > 250 && (
+                    <FixModals type="value" about={about} />
+                  )}
+                </motion.div>
               </div>
             </div>
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 };

@@ -13,22 +13,23 @@ class BrochureService extends BaseService {
     this.#repository = repository;
   }
 
-  async createBrochure(payload, payloadFiles) {
-    const { files } = payloadFiles;
-    // const { title, description, detail, pdf, quote, honorName, honorDesignation, video
+ async createBrochure(payload) {
+  const { title, description, companyIntroduction, successStory } = payload;
 
-    // } = payload;
-    // if (!title ||!details) throw new Error("title and details are required");
-    if (!files) throw new Error("image is required");
+  // Validation
+  if (!title) throw new Error("Title is required");
 
-    const images = await ImgUploader(files);
-    for (const key in images) {
-      payload[key] = images[key];
-    }
+  // Payload ready
+  const brochureData = await this.#repository.createBrochure({
+    title,
+    description,
+    companyIntroduction,
+    successStory,
+  });
 
-    const brochureData = await this.#repository.createBrochure(payload);
-    return brochureData;
-  }
+  return brochureData;
+}
+
 
   async getAllBrochure() {
     return await this.#repository.findAll();
@@ -45,34 +46,14 @@ class BrochureService extends BaseService {
     return brochureData;
   }
 
-  async updateBrochure(id, payloadFiles, payload) {
-    const { files } = payloadFiles;
-    const brochureData = await this.#repository.findById(id);
-    if (!brochureData) throw new NotFoundError("Brochure Not Found");
+async updateBrochure(id, payload) {
+  const brochureData = await this.#repository.findById(id);
+  if (!brochureData) throw new NotFoundError("Brochure Not Found");
 
-    const filesToDelete = [];
+  const updatedBrochure = await this.#repository.updateById(id, payload);
+  return updatedBrochure;
+}
 
-    if (files?.length) {
-      const images = await ImgUploader(files);
-
-      for (const key in images) {
-        // If a new file is uploaded for this field, mark the old one for deletion
-        if (brochureData[key]) {
-          filesToDelete.push(brochureData[key]);
-        }
-        payload[key] = images[key]; // Update payload with new files
-      }
-    }
-
-    const updatedBrochure = await this.#repository.updateById(id, payload);
-
-    // Remove only the replaced files from storage
-    for (const filePath of filesToDelete) {
-      await removeUploadFile(filePath);
-    }
-
-    return updatedBrochure;
-  }
 
   async deleteBrochure(id) {
     const brochure = await this.#repository.findById(id);

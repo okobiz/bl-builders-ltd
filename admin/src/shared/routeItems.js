@@ -22,18 +22,15 @@ export const menuItems = [
     children: [
       { key: "banners", label: "Banners", icon: IoImageOutline },
       { key: "about-us", label: "About Us", icon: LuInfo },
-      { key: "latest-gallery", label: "Latest Gallery", icon: LuImages },
+      // { key: "latest-gallery", label: "Latest Gallery", icon: LuImages },
     ],
   },
-  {
-    key: "aboutpage",
-    label: "AboutPage",
-    icon: MdOutlineHomeRepairService,
-    children: [
-      { key: "our-team", label: "Our Team", icon: GrGroup },
-      { key: "profile", label: "About Profile", icon: ImProfile },
-    ],
-  },
+  // {
+  //   key: "aboutpage",
+  //   label: "AboutPage",
+  //   icon: MdOutlineHomeRepairService,
+  //   children: [{ key: "profile", label: "About Profile", icon: ImProfile }],
+  // },
   {
     key: "productpage",
     label: "ProductPage",
@@ -46,26 +43,30 @@ export const menuItems = [
     key: "profilepage",
     label: "ProfilePage",
     icon: MdOutlineHomeRepairService,
-    children: [{ key: "brochure", label: "Profile", icon: IoBookOutline }],
-  },
-  {
-    key: "gallerypage",
-    label: "GalleryPage",
-    icon: MdOutlineHomeRepairService,
     children: [
-      { key: "gallery", label: "Gallery", icon: LuImages },
-      { key: "video", label: "Video", icon: IoVideocamOutline },
+      { key: "brochure", label: "Profile", icon: IoBookOutline },
+      { key: "our-team", label: "Our Team", icon: GrGroup },
+      { key: "our-client", label: "Our Client", icon: GrGroup },
     ],
   },
-  {
-    key: "carrerpage",
-    label: "CareerPage",
-    icon: MdOutlineHomeRepairService,
-    children: [
-      { key: "careers", label: "Careers", icon: MdOutlineWorkOutline },
-      { key: "job-applicants", label: "Job Applicant", icon: SlPeople },
-    ],
-  },
+  // {
+  //   key: "gallerypage",
+  //   label: "GalleryPage",
+  //   icon: MdOutlineHomeRepairService,
+  //   children: [
+  //     { key: "gallery", label: "Gallery", icon: LuImages },
+  //     { key: "video", label: "Video", icon: IoVideocamOutline },
+  //   ],
+  // },
+  // {
+  //   key: "carrerpage",
+  //   label: "CareerPage",
+  //   icon: MdOutlineHomeRepairService,
+  //   children: [
+  //     { key: "careers", label: "Careers", icon: MdOutlineWorkOutline },
+  //     { key: "job-applicants", label: "Job Applicant", icon: SlPeople },
+  //   ],
+  // },
   {
     key: "contactpage",
     label: "ContactPage",

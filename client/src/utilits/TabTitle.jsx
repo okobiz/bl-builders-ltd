@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 const TabTitle = ({ title }) => {
   return (
     <Helmet>
-      <title>Eco Comfort Socks LTD. - {title}</title>
+      <title>BL Builders Ltd - {title}</title>
     </Helmet>
   );
 };

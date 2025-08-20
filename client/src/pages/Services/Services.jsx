@@ -52,10 +52,10 @@ const Services = () => {
       <div className="container">
         <div>
           <p className="text-base font-medium text-[#244436] uppercase">
-          Our Apartments
+            Our Apartments
           </p>
           <h2 className="text-2xl font-medium mt-2 text-[#262626]/80">
-          End-to-End Sock Manufacturing Solutions for Sustainable Growth
+            End-to-End Sock Manufacturing Solutions for Sustainable Growth
           </h2>
         </div>
 

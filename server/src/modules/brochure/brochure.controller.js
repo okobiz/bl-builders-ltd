@@ -5,24 +5,15 @@ const BrochureService = require("./brochure.service.js");
 
 class BrochureController {
   createBrochure = withTransaction(async (req, res, next, session) => {
-    const payloadFiles = {
-      files: req.files,
-    };
     const payload = {
-      title: req?.body?.title,
-      description: req?.body?.description,
-      detail: req?.body?.detail,
-      // pdf: req?.body?.pdf,
-      quote: req?.body?.quote,
-      honorName: req?.body?.honorName,
-      honorDesignation: req?.body?.honorDesignation,
-      video: req?.body?.video,
-      // isActive: req?.body?.isActive,
+      title: req.body.title,
+      description: req.body.description,
+      companyIntroduction: req.body.companyIntroduction,
+      successStory: req.body.successStory,
     };
 
     const brochureResult = await BrochureService.createBrochure(
       payload,
-      payloadFiles,
       session
     );
     const resDoc = responseHandler(
@@ -62,25 +53,21 @@ class BrochureController {
   });
 
   updateBrochure = catchError(async (req, res) => {
+
     const id = req.params.id;
     const payloadFiles = {
       files: req?.files,
     };
+
     const payload = {
-      title: req?.body?.title,
-      description: req?.body?.description,
-      detail: req?.body?.detail,
-      // pdf: req?.body?.pdf,
-      quote: req?.body?.quote,
-      honorName: req?.body?.honorName,
-      honorDesignation: req?.body?.honorDesignation,
-      video: req?.body?.video,
-      isActive: req?.body?.isActive,
+      title: req.body.title,
+      description: req.body.description,
+      companyIntroduction: req.body.companyIntroduction,
+      successStory: req.body.successStory,
     };
 
     const brochure = await BrochureService.updateBrochure(
       id,
-      payloadFiles,
       payload
     );
     const resDoc = responseHandler(

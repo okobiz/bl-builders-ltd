@@ -1,10 +1,7 @@
 import { baseApi } from "../../api/baseApi";
 
-
 const teamApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    
-
     getTeams: builder.query({
       query: () => ({
         url: "/team",
@@ -12,13 +9,6 @@ const teamApi = baseApi.injectEndpoints({
       }),
       providesTags: ["team"],
     }),
-   
-
-    
-
   }),
 });
-export const {
-    
-  useGetTeamsQuery,
-} = teamApi;
+export const { useGetTeamsQuery } = teamApi;

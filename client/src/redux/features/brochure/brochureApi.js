@@ -1,10 +1,7 @@
 import { baseApi } from "../../api/baseApi";
 
-
 const brochureApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    
-
     getBrochures: builder.query({
       query: () => ({
         url: "/brochure",
@@ -12,14 +9,6 @@ const brochureApi = baseApi.injectEndpoints({
       }),
       providesTags: ["brochure"],
     }),
-   
-
-    
-
   }),
 });
-export const {
-    useGetBrochuresQuery,
-    
-  
-} = brochureApi;
+export const { useGetBrochuresQuery } = brochureApi;

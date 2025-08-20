@@ -10,6 +10,8 @@ class AuthRepository extends BaseRepository {
   }
 
   async createUser(userData) {
+    console.log(userData);
+    
     return await this.#model.create(userData);
   }
 

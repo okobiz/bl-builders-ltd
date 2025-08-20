@@ -30,22 +30,29 @@ const ServiceDetails = () => {
             </div>
           </div>
         ) : (
-          <div>
-            <div className="h-[300px] border border-[#F5FDF8] p-2 rounded">
+          <div className="">
+            {/* Image */}
+            <div className="h-[250px] md:h-[300px] lg:h-[320px] w-full overflow-hidden">
               <img
-                className="h-full w-full object-cover rounded"
                 src={baseUrl + service?.data?.image}
                 alt={service?.data?.title || "Service Image"}
+                className="w-full h-full object-cover rounded-t-lg transition-transform duration-300 group-hover:scale-105"
               />
             </div>
 
-            <div className="py-4 px-2">
-              <h2 className="xl:text-2xl lg:text-2xl text-xl font-semibold text-[#262626]/80">
+            {/* Content */}
+            <div className="p-4">
+              <h2 className="text-xl lg:text-2xl font-semibold text-[#262626]/90">
                 {service?.data?.title}
               </h2>
-              <p className="mt-4 leading-relaxed text-[#262626]/60">
+              <p className="mt-2 text-[#262626]/70 text-sm">
                 {service?.data?.details}
               </p>
+              {service?.data?.location && (
+                <p className="mt-2 text-[#244436]/80 font-medium text-sm">
+                  Location: {service.data.location}
+                </p>
+              )}
             </div>
           </div>
         )}

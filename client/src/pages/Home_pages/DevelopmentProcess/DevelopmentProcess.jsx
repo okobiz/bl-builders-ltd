@@ -92,7 +92,7 @@ impact."
                       <img
                         className=""
                         src={baseUrl + development.image}
-                        alt="Eco comfort socks"
+                        alt="BL Builders Ltd"
                       />
                     </div>
                   </div>

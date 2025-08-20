@@ -3,38 +3,9 @@ const Schema = mongoose.Schema;
 
 const Serviceschema = new Schema(
   {
-    image: {
-      type: String,
-    },
-    title: {
-      type: String,
-      trim: true,
-    },
-    details: {
-      type: String,
-      trim: true,
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  { timestamps: true }
-);
-
-const ServiceSchema = mongoose.model("service", Serviceschema);
-
-module.exports = { ServiceSchema };
-
-
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
-const Serviceschema = new Schema(
-  {
     category: {
       type: String,
-      required: true,
+      enum: ["land", "apartment"],
     },
     image: {
       type: String,
@@ -47,9 +18,6 @@ const Serviceschema = new Schema(
     details: {
       type: String,
       trim: true,
-    },
-    price: {
-      type: Number,
     },
     location: {
       type: String,
@@ -61,6 +29,7 @@ const Serviceschema = new Schema(
     },
      status: {
       type: String,
+      enum: ["delivered", "running", "upcoming"],
     },
   },
   { timestamps: true }

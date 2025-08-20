@@ -16,6 +16,7 @@ module.exports = {
   UserSchema: require("./user/userSchema.js").UserSchema,
   BlogSchema: require("./blog/blogSchema.js").BlogSchema,
   TeamSchema: require("./team/teamSchema.js").TeamSchema,
+  ClientSchema: require("./client/clientSchema.js").ClientSchema,
   EventSchema: require("./event/eventSchema.js").EventSchema,
   CareerSchema: require("./career/careerSchema.js").CareerSchema,
   LatestGallerySchema: require("./latestGallery/latestGallerySchema.js")

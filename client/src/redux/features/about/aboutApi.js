@@ -1,10 +1,7 @@
 import { baseApi } from "../../api/baseApi";
 
-
 const aboutApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    
-
     getAbout: builder.query({
       query: () => ({
         url: "/about-us",
@@ -12,13 +9,6 @@ const aboutApi = baseApi.injectEndpoints({
       }),
       providesTags: ["about"],
     }),
-
-    
-
   }),
 });
-export const {
- 
-  useGetAboutQuery,
-
-} = aboutApi;
+export const { useGetAboutQuery } = aboutApi;

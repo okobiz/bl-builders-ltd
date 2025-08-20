@@ -5,7 +5,7 @@ import { motion } from "framer-motion"; // Import Framer Motion
 import PagesHead from "../../utilits/PagesHead";
 import TabTitle from "../../utilits/TabTitle";
 import "./Contact.css";
-import logo from "../../assets/logo/eco_comfort.png";
+import Logo from "../../../src/assets/logo/logo.jpg"
 
 import { FaPhone } from "react-icons/fa6";
 import { FaInfo } from "react-icons/fa6";
@@ -119,7 +119,7 @@ export const Contact = () => {
         <div className="">
           <div>
             <div className="w-[140px] h-[100px]">
-              <img src={logo} alt="" />
+              <img src={Logo} alt="" />
             </div>
             <div>
               <h2 className="text-lg font-medium">Send Us a Message</h2>

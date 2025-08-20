@@ -5,14 +5,16 @@ const ServiceService = require("./service.service.js");
 
 class ServiceController {
   createService = withTransaction(async (req, res, next, session) => {
+    const { title, category, details, location, status } = req.body;
     const payloadFiles = {
       files: req.files,
     };
-    const payload = {
-      title: req?.body?.title,
-      details: req?.body?.details,
-      // isActive: req?.body?.isActive,
-    };
+    let { isActive } = req.body;
+    
+    isActive = isActive === "true" || isActive === true;
+
+    const payload = { title, category, details, location, status, isActive };
+
     const serviceResult = await ServiceService.createService(
       payload,
       payloadFiles,
@@ -27,7 +29,12 @@ class ServiceController {
   });
 
   getAllService = catchError(async (req, res) => {
-    const serviceResult = await ServiceService.getAllService();
+    const { category } = req.query;
+    const filter = {};
+    if (category) {
+      filter.category = category;
+    }
+    const serviceResult = await ServiceService.getAllService(filter);
     const resDoc = responseHandler(200, "Get All Services", serviceResult);
     res.status(resDoc.statusCode).json(resDoc);
   });

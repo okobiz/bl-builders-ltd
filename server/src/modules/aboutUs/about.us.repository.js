@@ -14,6 +14,8 @@ class AboutUsRepository extends BaseRepository {
       .find({}, null, { session })
       .sort({ createdAt: -1 });
     const deleteResult = await this.#model.deleteMany({}, { session });
+
+    
     if (deleteResult.deletedCount > 0) {
       for (const aboutUs of existingAboutUs) {
         if (aboutUs.photo) {
