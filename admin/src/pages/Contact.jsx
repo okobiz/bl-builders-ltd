@@ -45,6 +45,18 @@ const Contacts = () => {
       dataIndex: "email",
       key: "email",
     },
+    // {
+    //   title: "Visit Date",
+    //   dataIndex: "visitDate",
+    //   key: "visitDate",
+    //   render: (date) => (date ? new Date(date).toLocaleDateString() : "-"),
+    // },
+    // {
+    //   title: "Visit Time",
+    //   dataIndex: "visitTime",
+    //   key: "visitTime",
+    //   render: (time) => (time ? time : "-"),
+    // },
     {
       title: "Message",
       dataIndex: "message",
@@ -70,11 +82,11 @@ const Contacts = () => {
   return (
     <div className="bg-white my-6 p-8 rounded-md">
       <div className="flex justify-between mb-4">
-        <h1 className="text-2xl font-bold">All Contacts</h1>
+        <h1 className="text-2xl font-bold">User message</h1>
       </div>
 
       <Table
-        dataSource={contacts}
+        dataSource={contacts?.filter((c) => !c.visitDate && !c.visitTime)}
         columns={columns}
         rowKey="_id"
         loading={loading}

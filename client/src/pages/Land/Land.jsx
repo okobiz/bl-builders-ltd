@@ -58,12 +58,10 @@ const LandPage = () => {
   };
 
   return (
-    <div className="bg-[#f2f6f7]/20 mb-16">
+    <div className="bg-[#f2f6f7]/20 mb-16 mt-16">
       <div className="px-5 md:w-[90%] mx-auto">
         <div className="flex items-center justify-center">
-          <SectionHead
-            subTitle="OUR LAND / PROJECTS"
-          />
+          <SectionHead subTitle="OUR LAND / PROJECTS" />
         </div>
 
         {statusOrder.map((status) => {
@@ -91,30 +89,81 @@ const LandPage = () => {
                     viewport={{ once: true, amount: 0.2 }}
                     variants={variants}
                   >
-                    <div className="group border border-[#244436]/20 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer">
+                    <div className="group border border-[#244436]/20 rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-shadow duration-300 cursor-pointer flex flex-col h-full">
                       <Link
                         to={`/service/${service._id}`}
-                        className="block relative"
+                        className="block relative flex flex-col h-full"
                       >
-                        <div className="relative w-full lg:h-[300px] md:h-[300px] h-[250px] overflow-hidden rounded-t-lg">
+                        {/* Image Container */}
+                        <div className="relative w-full lg:h-[250px] md:h-[250px] h-[250px] overflow-hidden rounded-t-lg">
                           <img
-                            src={baseUrl + service.image}
+                            src={baseUrl + service?.images?.[0]}
                             alt={service.title}
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                           />
+                          {/* Gradient Overlay */}
                           <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#244436]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-lg"></div>
                         </div>
 
-                        <div className="p-4">
+                        {/* Content */}
+                        <div className="p-4 flex flex-col flex-grow">
                           <h3 className="text-lg font-semibold text-[#262626] group-hover:text-[#244436] transition-colors duration-300 line-clamp-1">
                             {service.title}
                           </h3>
-                          <p className="mt-2 text-[#262626]/70 group-hover:text-[#262626]/90 text-sm line-clamp-4">
+                          {service?.location && (
+                            <div className="mt-2 text-[#244436]/80 flex items-center ">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-6 w-6 text-red-600 drop-shadow-sm px-0"
+                                fill="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z" />
+                              </svg>
+                              <div>{service?.location}</div>
+                            </div>
+                          )}
+                          <p className="mt-2 text-[#262626]/70 group-hover:text-[#262626]/90 text-sm line-clamp-4 flex-grow">
                             {service.details}
                           </p>
+                          {/* featured */}
+                          <div className="flex flex-wrap gap-4 mt-3">
+                            {service?.featuredItems?.map((fi, fiIndex) => {
+                              const feat = fi?.item || fi;
+                              const qty = Number(fi?.quantity);
+                              const key =
+                                feat?._id ||
+                                fi?._id ||
+                                `${service._id}-${fiIndex}`;
 
+                              return (
+                                <div
+                                  key={key}
+                                  className="flex items-center gap-2 bg-white border border-gray-200 shadow-sm rounded-lg px-3 py-2 hover:shadow-md transition-shadow duration-200"
+                                >
+                                  {feat?.image && (
+                                    <img
+                                      src={baseUrl + feat.image}
+                                      alt={feat?.label}
+                                      className="w-6 h-6 object-cover rounded-md"
+                                    />
+                                  )}
+                                  <div className="flex flex-col">
+                                    <span className="text-[10px] text-gray-500">
+                                      {qty}
+                                    </span>
+                                    <span className="text-[10px] text-gray-800">
+                                      {feat?.label}
+                                    </span>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+
+                          {/* Read More Button */}
                           <div className="mt-4">
-                            <button className="relative px-4 py-2 border border-[#244436]/20 text-[#244436] rounded overflow-hidden group">
+                            <button className="relative px-4 py-2 border border-[#244436]/20 text-[#244436] rounded overflow-hidden group w-full">
                               <span className="relative z-10 group-hover:text-white transition-colors duration-300">
                                 Read More
                               </span>

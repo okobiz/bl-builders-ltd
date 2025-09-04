@@ -8,14 +8,17 @@ const useServiceActions = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch all services
-  const getAllServices = async () => {
+  // Fetch all services (optional filters object will be sent as query params)
+  const getAllServices = async (filters = {}) => {
     setLoading(true);
     try {
-      const response = await axiosInstance.get("/service");
+      const response = await axiosInstance.get("/service", { params: filters });
+      // API returns { data: [...] } according to controller
       setServices(response.data.data);
+      return response.data.data;
     } catch (err) {
       setError("Failed to fetch services", err);
+      throw err;
     } finally {
       setLoading(false);
     }

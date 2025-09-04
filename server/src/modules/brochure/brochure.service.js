@@ -13,23 +13,19 @@ class BrochureService extends BaseService {
     this.#repository = repository;
   }
 
- async createBrochure(payload) {
-  const { title, description, companyIntroduction, successStory } = payload;
+  async createBrochure(payload, session) {
+    const { file } = payload;
+    if (!file) throw new Error("image is required");
 
-  // Validation
-  if (!title) throw new Error("Title is required");
+    // ImgUploader expects array
+    const images = await ImgUploader([file]);
+    for (const key in images) {
+      payload[key] = images[key];
+    }
 
-  // Payload ready
-  const brochureData = await this.#repository.createBrochure({
-    title,
-    description,
-    companyIntroduction,
-    successStory,
-  });
-
-  return brochureData;
-}
-
+    const brochureData = await this.#repository.createBrochure(payload);
+    return brochureData;
+  }
 
   async getAllBrochure() {
     return await this.#repository.findAll();
@@ -46,14 +42,24 @@ class BrochureService extends BaseService {
     return brochureData;
   }
 
-async updateBrochure(id, payload) {
-  const brochureData = await this.#repository.findById(id);
-  if (!brochureData) throw new NotFoundError("Brochure Not Found");
+  async updateBrochure(id, payload, files = []) {
+    const brochureData = await this.#repository.findById(id);
+    if (!brochureData) throw new NotFoundError("Brochure Not Found");
 
-  const updatedBrochure = await this.#repository.updateById(id, payload);
-  return updatedBrochure;
-}
+    if (files.length > 0) {
+      const images = await ImgUploader(files);
+      for (const key in images) {
+        payload[key] = images[key];
+      }
 
+      if (brochureData.image) {
+        await removeUploadFile(brochureData.image);
+      }
+    }
+
+    const updatedBrochure = await this.#repository.updateById(id, payload);
+    return updatedBrochure;
+  }
 
   async deleteBrochure(id) {
     const brochure = await this.#repository.findById(id);

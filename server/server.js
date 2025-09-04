@@ -3,9 +3,9 @@ const express = require("express");
 const moment = require("moment-timezone");
 const morgan = require("morgan");
 const mongoose = require("mongoose");
-const rootRouter = require("./api/index.js");
-const config = require("./config/config.js");
-const globalErrorHandler = require("./middleware/errors/globalErrorHandler.js");
+const rootRouter = require("./src/api/index.js");
+const config = require("./src/config/config.js");
+const globalErrorHandler = require("./src/middleware/errors/globalErrorHandler.js");
 // const colors = require("colors");
 require("dotenv").config();
 

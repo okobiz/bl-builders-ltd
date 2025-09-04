@@ -27,7 +27,6 @@ export const Brochure = () => {
   const { data: teams, isLoading: isTeamLoading } = useGetTeamsQuery("");
   const { data: clients, isLoading: isClientLoading } = useGetClientsQuery("");
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -36,34 +35,46 @@ export const Brochure = () => {
     return <SkeletonLoader />;
   }
 
-  console.log(brochures);
-
   return (
-    <div className="px-5 md:w-[90%] mx-auto py-10">
+    <div className="px-5 md:w-[90%] mx-auto py-10 md:py-20">
       {/* ✅ Brochure Section */}
-      <section>
+      <section className="mt-20 md:mt-28 ">
         {brochures?.data?.map((brochure) => (
-          <div key={brochure._id} className="mb-10">
-            <h2 className="text-2xl md:text-3xl xl:text-4xl font-bold text-[#244436] mb-4 text-center">
-              {brochure.title}
-            </h2>
-            <p className="text-gray-700 text-justify">{brochure.description}</p>
-            <p className="mt-4 text-gray-600 text-justify">
-              {brochure.companyIntroduction}
-            </p>
-            <p className="mt-4 text-gray-600 text-justify">
-              {brochure.successStory}
-            </p>
+          <div
+            key={brochure._id}
+            className="mb-10 grid grid-cols-1 md:grid-cols-3 gap-6 items-start"
+          >
+            {/* ✅ Image */}
+            <div className="w-full md:col-span-1">
+              <img
+                src={baseUrl + brochure?.image}
+                alt={brochure.title}
+                className="w-full h-auto rounded-lg shadow-md object-cover"
+              />
+            </div>
+
+            {/* ✅ Content */}
+            <div className="w-full md:col-span-2">
+              <h2 className="text-2xl md:text-3xl xl:text-4xl font-bold text-[#244436] mb-4 uppercase">
+                {brochure?.title}
+              </h2>
+              <p className="text-gray-700 text-justify">
+                {brochure?.description}
+              </p>
+              <p className="mt-4 text-gray-600 text-justify">
+                {brochure?.successStory}
+              </p>
+            </div>
           </div>
         ))}
       </section>
 
       {/* ✅ Team Section */}
       <section className="mt-12">
-        <h2 className=" font-semibold text-[#244436] mb-6 text-2xl md:text-3xl xl:text-4xl text-center">
+        <h2 className=" font-bold uppercase text-[#244436] mb-6 text-2xl md:text-3xl xl:text-4xl text-center">
           Our Team
         </h2>
-        <div className="grid md:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {teams?.data?.map((member) => (
             <div key={member._id} className="bg-white rounded-lg shadow p-4">
               <div className="relative w-full lg:h-[300px] md:h-[300px] h-[250px] overflow-hidden rounded-t-lg">
@@ -84,10 +95,10 @@ export const Brochure = () => {
 
       {/* ✅ Client Section */}
       <section className="mt-12">
-        <h2 className=" font-semibold text-[#244436] mb-6 text-2xl md:text-3xl xl:text-4xl text-center">
+        <h2 className=" font-semibold text-[#244436] mb-6 text-2xl md:text-3xl xl:text-4xl text-center uppercase">
           Our Clients
         </h2>
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {clients?.data?.map((client) => (
             <div key={client._id} className="bg-white rounded-lg shadow p-4">
               <div className="relative w-full lg:h-[300px] md:h-[300px] h-[250px] overflow-hidden rounded-t-lg">

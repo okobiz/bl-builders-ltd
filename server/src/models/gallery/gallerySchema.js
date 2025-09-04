@@ -13,10 +13,10 @@ const Galleryschema = new Schema(
       // required: true,
       trim: true,
     },
-    detail: {
-      type: String,
-      trim: true,
-    },
+    // detail: {
+    //   type: String,
+    //   trim: true,
+    // },
     event: [
       {
         eventTitle: {

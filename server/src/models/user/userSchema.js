@@ -60,10 +60,10 @@ const Userschema = new Schema(
       default: true,
       select: false,
     },
-    verified: {
-      type: Boolean,
-      default: false,
-    },
+    // verified: {
+    //   type: Boolean,
+    //   default: false,
+    // },
     verificationToken: String,
     verificationTokenExpires: String,
     passwordChangedAt: Date,

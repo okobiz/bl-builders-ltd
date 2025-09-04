@@ -15,9 +15,22 @@ const Contactschema = new Schema(
       type: String,
       trim: true,
     },
+    productID : {  
+      type: String
+    }, 
+    visitDate: {
+      type: Date,
+    },
+     visitTime: {
+      type: String,
+    },
     message: {
       type: String,
       trim: true,
+    },
+    status: {
+      type: String,
+      enum: ["client", "user"],
     },
     isActive: {
       type: Boolean,

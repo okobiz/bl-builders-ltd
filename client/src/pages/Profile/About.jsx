@@ -136,17 +136,9 @@ export const About = () => {
 
                   {/* Content */}
                   <div className="lg:w-3/5 w-full">
-                    <SectionHead
-                      subTitle="ABOUT US"
-                      title={
-                        <span>
-                          {about.title.split(" ").slice(0, -1).join(" ")}{" "}
-                          <span className="text-[#244436]">
-                            {about.title.split(" ").slice(-1)}
-                          </span>
-                        </span>
-                      }
-                    />
+                    <h2 className="text-[#244436] uppercase text-2xl md:text-3xl xl:text-4xl font-semibold">
+                      ABOUT US
+                    </h2>
 
                     {/* Short Description */}
                     <div className="mt-4 text-[#262626]/80 space-y-3">

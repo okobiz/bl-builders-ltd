@@ -1,13 +1,11 @@
 /* eslint-disable react/prop-types */
-const SectionHead = ({
-  subTitle,
-  alDesign,
-}) => {
+const SectionHead = ({ subTitle, alDesign, status }) => {
   return (
-    <div className={`flex flex-col gap-4 ${alDesign}`}>
-        <p className="text-[#244436] uppercase mt-6 text-2xl md:text-3xl xl:text-4xl font-semibold">
-          {subTitle}
-        </p>
+    <div className={`flex items-center justify-center ${alDesign}`}>
+      <p className="text-[#244436] uppercase text-2xl md:text-3xl xl:text-4xl font-semibold">
+        {subTitle}
+        {status && <p className="text-xl">({status})</p>}
+      </p>
     </div>
   );
 };

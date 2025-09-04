@@ -9,7 +9,10 @@ class ContactController {
       name: req?.body?.name,
       phone: req?.body?.phone,
       email: req?.body?.email,
+      visitDate: req?.body?.visitDate,
+      visitTime: req?.body?.visitTime,
       message: req?.body?.message,
+      productID: req?.body?.productID,
       // isActive: req?.body?.isActive,
     };
 
@@ -57,6 +60,7 @@ class ContactController {
       name: req?.body?.name,
       phone: req?.body?.phone,
       email: req?.body?.email,
+      visitDate: req?.body?.visitDate,
       message: req?.body?.message,
       isActive: req?.body?.isActive,
     };

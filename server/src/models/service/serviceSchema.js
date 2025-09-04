@@ -3,13 +3,17 @@ const Schema = mongoose.Schema;
 
 const Serviceschema = new Schema(
   {
+     productID: {
+      type: String,
+      default: () => `PROD-${Date.now()}`,
+      unique: true,
+    },
     category: {
       type: String,
       enum: ["land", "apartment"],
     },
-    image: {
-      type: String,
-    },
+    images: [{ type: String }],
+    youtubeLink: { type: String },
     title: {
       type: String,
       trim: true,
@@ -23,11 +27,23 @@ const Serviceschema = new Schema(
       type: String,
       trim: true,
     },
+    amenities: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Amenity",
+      },
+    ],
+    featuredItems: [
+      {
+        item: { type: Schema.Types.ObjectId, ref: "Featured" },
+        quantity: { type: Number, default: 1 },
+      },
+    ],
     isActive: {
       type: Boolean,
       default: true,
     },
-     status: {
+    status: {
       type: String,
       enum: ["delivered", "running", "upcoming"],
     },
@@ -38,4 +54,3 @@ const Serviceschema = new Schema(
 const ServiceSchema = mongoose.model("service", Serviceschema);
 
 module.exports = { ServiceSchema };
-

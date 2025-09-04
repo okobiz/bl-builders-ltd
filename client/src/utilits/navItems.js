@@ -3,21 +3,25 @@ export const navItems = [
     label: "Home",
     href: "/",
   },
-  {
-    label: "About Us",
-    href: "/about",
-  },
+  // {
+  //   label: "About",
+  //   href: "/about",
+  // },
   {
     label: "Profile",
     href: "/profile",
   },
   {
-    label: "Land/Projects",
+    label: "Land",
     href: "/land",
   },
   {
-    label: "Apartments",
+    label: "Flat",
     href: "/apartments",
+  },
+  {
+    label: "Gallery",
+    href: "/gallery",
   },
   {
     label: "Contact Us",

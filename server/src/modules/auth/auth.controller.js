@@ -5,6 +5,7 @@ const AuthService = require("./auth.service.js");
 
 class AuthController {
   signup = withTransaction(async (req, res, next, session) => {    
+    
     const user = await AuthService.signup(req.body, session);
     const resDoc = responseHandler(201, "User registered successfully", user);
     res.status(resDoc.statusCode).json(resDoc);
@@ -19,6 +20,8 @@ class AuthController {
 
   login = catchError(async (req, res) => {
     const { emailOrPhone, password } = req.body;
+    console.log(emailOrPhone, password);
+    
     const result = await AuthService.login(emailOrPhone, password);
     const resDoc = responseHandler(200, "Login successful", result);
     res.status(resDoc.statusCode).json(resDoc);

@@ -4,6 +4,7 @@ module.exports = {
   BrochureSchema: require("./brochure/brochureSchema.js").BrochureSchema,
   ProfileSchema: require("./profile/profileSchema.js").ProfileSchema,
   ContactSchema: require("./contact/contactSchema.js").ContactSchema,
+  AmenitySchema: require("./amenity/amenitySchema.js").AmenitySchema,
   DevelopmentProcessSchema:
     require("./developmentProcess/developmentProcessSchema.js")
       .DevelopmentProcessSchema,

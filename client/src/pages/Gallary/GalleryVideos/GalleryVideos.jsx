@@ -20,7 +20,7 @@ const GalleryVideos = () => {
           return (
             <div key={video._id} className="px-2 rounded overflow-hidden">
               <div className="border relative group rounded cursor-pointer">
-                <div className="relative lg:h-[300px] md:h-[300px] h-[280px]  w-full bg-[#262626] rounded overflow-hidden">
+                <div className="relative lg:h-[400px] md:h-[300px] h-[280px]  w-full bg-[#262626] rounded overflow-hidden">
                   {videoId ? (
                     <iframe
                       className="h-full w-full object-cover rounded duration-300"

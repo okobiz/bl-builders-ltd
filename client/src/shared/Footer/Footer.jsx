@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import Logo from "../../../src/assets/logo/logo.jpg"
+import Logo from "../../../src/assets/logo/logo.png"
 import { navItems } from "../../utilits/navItems";
 import SocialIcon from "../SocialIcon/SocialIcon";
 import Map from "../../utilits/Map";
@@ -32,16 +32,16 @@ const Footer = () => {
         <div className="absolute inset-0 bg-[#262626]/20"></div>
 
         {/* Content Section */}
-        <div className="relative py-12 mx-auto text-white px-5 md:w-[90%]">
+        <div className="relative py-12 mx-auto text-white px-5 md:w-[90%] ">
           <div className="grid lg:grid-cols-3">
-            <div className="flex flex-col gap-4 text-[#fff]/70 mt-10 xl:ml-0 lg:ml-12">
+            <div className="flex flex-col gap-4 text-[#fff]/70 mt-10 xl:ml-0">
               <img
                 src={Logo}
                 alt="Logo"
-                className="h-20 w-40 bg-gray-200 p-2 rounded-lg"
+                className="w-16 h-16 rounded-lg"
               />
               <p className="hover:text-[#fff] duration-300 cursor-pointer mr-12">
-                Zirani Bazar, BKSP - 1349, Ashulia, Savar, Dhaka
+                Address: 5 No, Shah ali, Shopping complex, 2nd buildirs, 1st floor, Mirpur, Dhaka, 1216
               </p>
             </div>
             <div className="flex flex-col gap-6 mt-10 xl:ml-0 lg:ml-12">

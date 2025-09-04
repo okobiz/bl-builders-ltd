@@ -5,7 +5,7 @@ import { motion } from "framer-motion"; // Import Framer Motion
 import PagesHead from "../../utilits/PagesHead";
 import TabTitle from "../../utilits/TabTitle";
 import "./Contact.css";
-import Logo from "../../../src/assets/logo/logo.jpg"
+import Logo from "../../../src/assets/logo/logo.png";
 
 import { FaPhone } from "react-icons/fa6";
 import { FaInfo } from "react-icons/fa6";
@@ -13,9 +13,11 @@ import { BiSupport } from "react-icons/bi";
 import { useForm } from "react-hook-form";
 import { useAddContactMutation } from "../../redux/features/contact/contactApi";
 import toast from "react-hot-toast";
+import BGImage from "../../../src/assets/contact/contact.jpg";
 
 export const Contact = () => {
   const [addContact] = useAddContactMutation();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -61,38 +63,44 @@ export const Contact = () => {
         transition={{ duration: 0.8, ease: "easeOut" }} // Control speed and easing
         className="grid xl:grid-cols-2 lg:grid-cols-2 gap-12 container"
       >
-        <div className="bg-[#F5FDF8] relative group overflow-hidden rounded lg:px-12 md:px-12 px-8 py-12">
+        <div
+          style={{ backgroundImage: `url(${BGImage})` }}
+          className="relative group overflow-hidden rounded lg:px-12 md:px-12 px-8 py-12 bg-cover bg-center text-white text-xl"
+        >
           <div>
-            <h2 className="text-lg font-medium">Get in Touch</h2>
+            <h2 className="text-2xl font-medium">Get in Touch</h2>
             <div className="border-b-4 border-[#244436] w-[30px] mt-1"></div>
           </div>
           <div className="mt-8 z-10 relative">
-            <p>Numbers:</p>
+            <p>Numbers: 01712105252</p>
             <div className="flex items-center gap-2 mt-2">
               <p className="w-[22px] h-[22px] bg-[#244436] flex items-center justify-center text-[#fff] text-[12px] rounded">
                 <FaPhone />
               </p>
-              <p className="text-[#262626]/60 group-hover:text-[#262626]">
-                General Inquiries: 
+              <p className="">
+                Email: bashir.iconicfashion@gmail.com
               </p>
             </div>
           </div>
 
           <div className="mt-8 z-10 relative">
-            <p>Email:</p>
+            <p>
+              🏠 Address: 5 No, Shah ali, Shopping complex, 2nd buildirs, 1st
+              floor, Mirpur, Dhaka, 1216
+            </p>
             <div className="flex items-center gap-2 mt-2">
-              <p className="w-[22px] h-[22px] bg-[#244436] flex items-center justify-center text-[#fff] text-[12px] rounded">
+              {/* <p className="w-[22px] h-[22px] bg-[#244436] flex items-center justify-center text-[#fff] text-[12px] rounded">
                 <FaInfo />
-              </p>
+              </p> */}
               <p className="text-[#262626]/60 group-hover:text-[#262626]">
                 {/* info@ideatreebd.com */}
               </p>
             </div>
 
             <div className="flex items-center gap-2 mt-2">
-              <p className="w-[22px] h-[22px] bg-[#244436] flex items-center justify-center text-[#fff] text-[12px] rounded">
+              {/* <p className="w-[22px] h-[22px] bg-[#244436] flex items-center justify-center text-[#fff] text-[12px] rounded">
                 <BiSupport />
-              </p>
+              </p> */}
               <p className="text-[#262626]/60 group-hover:text-[#262626]">
                 {/* support@ideatreebd.com */}
               </p>
@@ -100,7 +108,7 @@ export const Contact = () => {
           </div>
 
           <div className="mt-8 z-10 relative">
-            <p>Business Hours:</p>
+            {/* <p>Business Hours:</p> */}
             {/* <div className="flex items-center gap-2 mt-2">
               <p className="text-[#262626]/60 group-hover:text-[#262626]">
                 Saturday — Thursday 9am – 5pm
@@ -114,15 +122,21 @@ export const Contact = () => {
             </div> */}
           </div>
 
-          <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent to-[#244436] rounded transform scale-x-100 transition-transform duration-300 ease-in-out"></div>
+          <div className="absolute inset-0 w-full h-full rounded transform scale-x-100 transition-transform duration-300 ease-in-out"></div>
         </div>
         <div className="">
           <div>
-            <div className="w-[140px] h-[100px]">
-              <img src={Logo} alt="" />
+            <div className="">
+              <img
+                src={Logo}
+                className="h-20 w-40 bg-gray-200 p-2 rounded-lg"
+                alt=""
+              />
             </div>
             <div>
-              <h2 className="text-lg font-medium">Send Us a Message</h2>
+              <h2 className="text-lg md:text-2xl font-medium mt-2">
+                Send Us a Message
+              </h2>
               <p className="mt-2 text-[#262626]/60">
                 Enter your name, valid email address, and number to contact us
               </p>
@@ -196,12 +210,14 @@ export const Contact = () => {
                 )}
               </div>
 
-              <div>
-                <input
-                  className="px-2 py-2 border bg-[#244436] hover:bg-[#4eb67d] duration-300 rounded outline-none w-full text-[#fff] cursor-pointer"
+              <div className="relative group w-full">
+                <button
                   type="submit"
-                  value="Send Message"
-                />
+                  className="relative z-10 px-2 py-2 border bg-[#244436] rounded outline-none w-full text-[#fff] cursor-pointer overflow-hidden"
+                >
+                  <span className="relative z-10">Send Message</span>
+                  <div className="absolute inset-0 bg-orange-500 rounded origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out"></div>
+                </button>
               </div>
             </form>
           </div>

@@ -9,7 +9,6 @@ import Banners from "./pages/Banners";
 import AboutUs from "./pages/AboutUs";
 import Brochure from "./pages/Brochure";
 import Contact from "./pages/Contact";
-import DevelopmentProcess from "./pages/DevelopmentProcess";
 import Experience from "./pages/Experience";
 import Gallery from "./pages/Gallery";
 import Video from "./pages/Video";
@@ -19,14 +18,15 @@ import Login from "./layout/Login";
 import Profile from "./pages/Profile";
 import ForgotPassword from "./layout/ForgotPassword";
 import ResetPassword from "./layout/ResetPassword";
-import Publications from "./pages/Publications";
-import Blogs from "./pages/Blogs";
-import Events from "./pages/Events";
 import Teams from "./pages/Teams";
 import Careers from "./pages/Careers";
 import JobApplicants from "./pages/JobApplicant";
 import LatestGallerys from "./pages/LatestGallery";
 import Client from "./pages/Client";
+import AmenityManager from "./pages/AmenityManager";
+import Users from "./pages/Users";
+import FeaturedManager from "./pages/FeaturedManager";
+import ClientsMessage from "./pages/ClientsMessage";
 
 const router = createBrowserRouter([
   {
@@ -49,6 +49,9 @@ const router = createBrowserRouter([
       { path: "about-us", element: <AboutUs /> },
       { path: "brochure", element: <Brochure /> },
       { path: "contact", element: <Contact /> },
+      { path: "client", element: <ClientsMessage /> },
+      { path: "amenity", element: <AmenityManager /> },
+      { path: "featured", element: <FeaturedManager /> },
       // { path: "development-process", element: <DevelopmentProcess /> },
       { path: "experience", element: <Experience /> },
       { path: "gallery", element: <Gallery /> },
@@ -64,6 +67,7 @@ const router = createBrowserRouter([
       { path: "our-team", element: <Teams /> },
       { path: "our-client", element: <Client /> },
       { path: "job-applicants", element: <JobApplicants /> },
+      { path: "visitors", element: <Users /> },
     ],
   },
 ]);

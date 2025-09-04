@@ -34,7 +34,7 @@ const DetailsLayout = () => {
       opacity: 1,
       transition: { duration: 1, ease: "easeInOut" },
     },
-  };
+  };  
 
   return (
     <div>
@@ -47,20 +47,13 @@ const DetailsLayout = () => {
       >
         <div className="absolute inset-0 bg-[#262626]/80 bg-opacity-50"></div>
         <div className="container relative flex flex-col text-[#fff] top-12">
-          <h2 className="text-4xl ">Our Services</h2>
+          <h2 className="text-4xl ">Services Details</h2>
           <div className="flex flex-wrap items-center gap-2 pt-2 text-sm capitalize">
             <Link
               to="/"
               className="hover:text-[#244436] duration-300 cursor-pointer"
             >
               Home
-            </Link>
-            <p>/</p>
-            <Link
-              to="/products"
-              className="hover:text-[#244436] duration-300 cursor-pointer"
-            >
-              <p>Our services</p>
             </Link>
             <p>/</p>
             <p>{service?.data?.title}</p>
@@ -79,9 +72,9 @@ const DetailsLayout = () => {
         </motion.div>
 
         {/* Services Menu for smaller screens */}
-        <div className="lg:hidden absolute top-[80px] md:left-[58px] left-[40px]">
+        {/* <div className="lg:hidden absolute top-[80px] md:left-[58px] left-[40px]">
           <ServicesMenu />
-        </div>
+        </div> */}
 
         {/* Outlet Animation */}
         <motion.div

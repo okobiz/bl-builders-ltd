@@ -34,20 +34,20 @@ const Banner = () => {
   if (!activeBanners.length) return null; // No banner to show
 
   return (
-    <section className="relative w-full min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <section className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden">
       {/* Image Slider */}
       <div
         className="absolute inset-0 flex transition-transform duration-1000 ease-in-out"
         style={{ transform: `translateX(-${currentIndex * 100}%)` }}
       >
-        {activeBanners.map((banner, idx) => (
+        {activeBanners?.map((banner, idx) => (
           <div
             key={banner._id}
             className="w-full h-full flex-shrink-0 relative"
           >
             <img
-              src={baseUrl + banner.image}
-              alt={banner.title || `Banner ${idx + 1}`}
+              src={baseUrl + banner?.image}
+              alt={banner?.title || `Banner ${idx + 1}`}
               className="object-cover w-full h-full"
             />
           </div>
@@ -66,17 +66,17 @@ const Banner = () => {
             className="text-center text-white max-w-2xl bg-black/30 p-6 rounded-md"
           >
             <p className="text-orange-500 text-sm mb-2">
-              {activeBanners[currentIndex].subtitle ||
+              {activeBanners[currentIndex]?.subtitle ||
                 "🏠 Where Dreams are Deeded!"}
             </p>
             <h1 className="text-3xl md:text-5xl font-bold mb-2">
-              {activeBanners[currentIndex].title} <br />
+              {activeBanners[currentIndex]?.title} <br />
               <span className="text-orange-500">
-                {activeBanners[currentIndex].highlight}
+                {activeBanners[currentIndex]?.highlight}
               </span>
             </h1>
             <p className="text-sm md:text-base">
-              {activeBanners[currentIndex].details}
+              {activeBanners[currentIndex]?.details}
             </p>
           </motion.div>
         </AnimatePresence>

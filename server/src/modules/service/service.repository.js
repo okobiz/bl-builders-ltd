@@ -14,6 +14,21 @@ class ServiceRepository extends BaseRepository {
     return newService;
   }
 
+  async findAllWithPopulate(filter = {}) {
+    return await this.#model
+  .find(filter)
+  .populate("amenities", "label image")
+  .populate({ path: 'featuredItems.item', select: 'label image' })
+      .sort({ createdAt: -1 });
+  }
+
+  async findByIdWithPopulate(id) {
+    return await this.#model
+  .findById(id)
+  .populate("amenities", "label image")
+  .populate({ path: 'featuredItems.item', select: 'label image' });
+  }
+
   async getServiceWithPagination(payload) {
     try {
       const services = await pagination(
@@ -23,9 +38,9 @@ class ServiceRepository extends BaseRepository {
             .find({})
             .sort({ createdAt: sortOrder })
             .skip(offset)
-            .limit(limit);
-          // .populate('')
-          // .populate('')
+            .limit(limit)
+            .populate("amenities", "label image")
+            .populate({ path: 'featuredItems.item', select: 'label image' });
           const totalService = await this.#model.countDocuments();
 
           return { doc: services, totalDoc: totalService };

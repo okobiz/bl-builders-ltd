@@ -15,21 +15,36 @@ class ServiceService extends BaseService {
 
   async createService(payload, payloadFiles) {
     const { files } = payloadFiles;
-    // const { title, details } = payload;
-    // if (!title || !details) throw new Error("title and details are required");
+
     if (!files) throw new Error("image is required");
 
-    const images = await ImgUploader(files);
-    for (const key in images) {
-      payload[key] = images[key];
+    let images = await ImgUploader(files);
+
+    // before saving
+    if (typeof payload.featuredItems === "string") {
+      payload.featuredItems = JSON.parse(payload.featuredItems);
     }
+
+    // Flattening logic
+    if (Array.isArray(images) && images[0]?.images) {
+      images = images[0].images;
+    }
+    payload.images = images;
+
+    // Extra check if frontend sent nested object
+    if (payload.images?.images) {
+      payload.images = payload.images.images;
+    }
+
+    console.log(payload);
+    
 
     const serviceData = await this.#repository.createService(payload);
     return serviceData;
   }
 
   async getAllService(filter) {
-    return await this.#repository.findAll(filter);
+    return await this.#repository.findAllWithPopulate(filter);
   }
 
   async getServiceWithPagination(payload) {
@@ -38,7 +53,8 @@ class ServiceService extends BaseService {
   }
 
   async getSingleService(id) {
-    const serviceData = await this.#repository.findById(id);
+    const serviceData = await this.#repository.findByIdWithPopulate(id);
+
     if (!serviceData) throw new NotFoundError("Service Not Find");
     return serviceData;
   }
@@ -47,18 +63,32 @@ class ServiceService extends BaseService {
     const { files } = payloadFiles;
 
     if (files?.length) {
-      const images = await ImgUploader(files);
-      for (const key in images) {
-        payload[key] = images[key];
+      let images = await ImgUploader(files);
+
+      // Flattening logic
+      if (Array.isArray(images) && images[0]?.images) {
+        images = images[0].images;
       }
+
+      // Extra check if frontend sent nested object
+      if (images?.images) {
+        images = images.images;
+      }
+
+      payload.images = images;
     }
 
     const serviceData = await this.#repository.updateById(id, payload);
     if (!serviceData) throw new NotFoundError("Service Not Find");
 
-    if (files.length && serviceData) {
-      await removeUploadFile(serviceData?.image);
+    if (files?.length && serviceData?.images?.length) {
+      for (const imgPath of serviceData.images) {
+        if (imgPath) {
+          await removeUploadFile(imgPath);
+        }
+      }
     }
+
     return serviceData;
   }
 
@@ -66,9 +96,15 @@ class ServiceService extends BaseService {
     const service = await this.#repository.findById(id);
     if (!service) throw new NotFoundError("Service not found");
     const deletedService = await this.#repository.deleteById(id);
-    if (deletedService) {
-      await removeUploadFile(service?.image);
+
+    if (deletedService?.images?.length) {
+      for (const imgPath of deletedService.images) {
+        if (imgPath) {
+          await removeUploadFile(imgPath);
+        }
+      }
     }
+
     return deletedService;
   }
 }

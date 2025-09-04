@@ -10,22 +10,22 @@ class GalleryRepository extends BaseRepository {
   }
 
   async createGallery(payload) {
-    const existingGallery = await this.#model
-      .find({}, null, {})
-      .sort({ createdAt: -1 });
-    const deleteResult = await this.#model.deleteMany({}, {});
-    if (deleteResult.deletedCount > 0) {
-      for (const aboutUs of existingGallery) {
-        if (aboutUs.photo) {
-          try {
-            // await removeUploadFile(aboutUs.photo);
-            console.log("removed photo");
-          } catch (fileError) {
-            console.error(`Failed to remove file: ${aboutUs.photo}`, fileError);
-          }
-        }
-      }
-    }
+    // const existingGallery = await this.#model
+    //   .find({}, null, {})
+    //   .sort({ createdAt: -1 });
+    // const deleteResult = await this.#model.deleteMany({}, {});
+    // if (deleteResult.deletedCount > 0) {
+    //   for (const aboutUs of existingGallery) {
+    //     if (aboutUs.photo) {
+    //       try {
+    //         // await removeUploadFile(aboutUs.photo);
+    //         console.log("removed photo");
+    //       } catch (fileError) {
+    //         console.error(`Failed to remove file: ${aboutUs.photo}`, fileError);
+    //       }
+    //     }
+    //   }
+    // }
 
     const newGallery = await this.#model.create(payload);
     return newGallery;

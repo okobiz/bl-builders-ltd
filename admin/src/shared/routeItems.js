@@ -22,26 +22,17 @@ export const menuItems = [
     children: [
       { key: "banners", label: "Banners", icon: IoImageOutline },
       { key: "about-us", label: "About Us", icon: LuInfo },
-      // { key: "latest-gallery", label: "Latest Gallery", icon: LuImages },
     ],
   },
-  // {
-  //   key: "aboutpage",
-  //   label: "AboutPage",
-  //   icon: MdOutlineHomeRepairService,
-  //   children: [{ key: "profile", label: "About Profile", icon: ImProfile }],
-  // },
   {
-    key: "productpage",
-    label: "ProductPage",
+    key: "service",
+    label: "Product",
     icon: MdOutlineHomeRepairService,
-    children: [
-      { key: "service", label: "Product", icon: MdOutlineHomeRepairService },
-    ],
+    path: "/dashboard/service",
   },
   {
     key: "profilepage",
-    label: "ProfilePage",
+    label: "Company Profile",
     icon: MdOutlineHomeRepairService,
     children: [
       { key: "brochure", label: "Profile", icon: IoBookOutline },
@@ -49,28 +40,43 @@ export const menuItems = [
       { key: "our-client", label: "Our Client", icon: GrGroup },
     ],
   },
-  // {
-  //   key: "gallerypage",
-  //   label: "GalleryPage",
-  //   icon: MdOutlineHomeRepairService,
-  //   children: [
-  //     { key: "gallery", label: "Gallery", icon: LuImages },
-  //     { key: "video", label: "Video", icon: IoVideocamOutline },
-  //   ],
-  // },
-  // {
-  //   key: "carrerpage",
-  //   label: "CareerPage",
-  //   icon: MdOutlineHomeRepairService,
-  //   children: [
-  //     { key: "careers", label: "Careers", icon: MdOutlineWorkOutline },
-  //     { key: "job-applicants", label: "Job Applicant", icon: SlPeople },
-  //   ],
-  // },
   {
-    key: "contactpage",
-    label: "ContactPage",
+    key: "gallerypage",
+    label: "Gallery",
     icon: MdOutlineHomeRepairService,
-    children: [{ key: "contact", label: "Messages", icon: LuContact }, ,],
+    children: [
+      { key: "gallery", label: "Gallery", icon: LuImages },
+      { key: "video", label: "Video", icon: IoVideocamOutline },
+    ],
+  },
+  {
+    key: "amenity",
+    label: "Amenities",
+    icon: MdOutlineHomeRepairService,
+    path: "/dashboard/amenity",
+  },
+  {
+    key: "featured",
+    label: "Featured",
+    icon: MdOutlineHomeRepairService,
+    path: "/dashboard/featured",
+  },
+  {
+    key: "contact",
+    label: "User Message",
+    icon: LuContact,
+    path: "/dashboard/contact",
+  },
+  {
+    key: "client",
+    label: "Client Message",
+    icon: LuContact,
+    path: "/dashboard/client",
+  },
+  {
+    key: "visitors",
+    label: "Visitors Message",
+    icon: LuContact,
+    path: "/dashboard/visitors",
   },
 ];

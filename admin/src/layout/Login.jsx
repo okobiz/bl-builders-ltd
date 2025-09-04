@@ -5,6 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { activeUser } from "../utils/Slices/userSlices";
 import axiosInstance from "../components/Axios";
+import Logo from "../assets/logo/logo.jpg";
+import LoginImage from "../assets/image/LoginImage.jpg";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -53,55 +55,80 @@ const Login = () => {
 
   return (
     <div className="flex justify-center flex-col items-center h-screen bg-gradient-to-r from-indigo-200 to-yellow-100">
-      <div className="md:w-[500px] mx-auto border p-10 mb-16 rounded-md bg-tertiary">
-        <h1 className="text-2xl my-2 mb-5">Login</h1>
-        <Form
-          name="normal_login"
-          className="login-form"
-          initialValues={{ remember: true }}
-          onFinish={onFinish}
-        >
-          <Form.Item
-            name="email"
-            rules={[{ required: true, message: "Please input your email!" }]}
-          >
-            <Input
-              prefix={<UserOutlined className="site-form-item-icon" />}
-              placeholder="Email"
-            />
-          </Form.Item>
-          <Form.Item
-            name="password"
-            rules={[{ required: true, message: "Please input your Password!" }]}
-          >
-            <Input.Password
-              prefix={<LockOutlined className="site-form-item-icon" />}
-              type="password"
-              placeholder="Password"
-            />
-          </Form.Item>
-          <Form.Item>
-            <Button
-              type="primary"
-              htmlType="submit"
-              className="login-form-button w-full bg-primary"
-            >
-              Log in
-            </Button>
-          </Form.Item>
-        </Form>
+      <div className="flex items-center gap-5 h-[400px]">
+        {/* gap-5 ≈ 20px, h-[400px] sets same height */}
 
-        <span>
-          <Link
-            to="/forgot-password"
-            className="text-slate-700 hover:text-blue-500 hover:underline"
+        {/* Image Section */}
+        <div className="w-1/2 h-full">
+          <img
+            className="w-full h-full object-cover rounded-md"
+            src={LoginImage}
+            alt="Login Image"
+          />
+        </div>
+
+        {/* Login Form Section */}
+        <div className="w-1/2 border p-10 rounded-md bg-tertiary flex flex-col justify-center h-full">
+          <div className="flex items-center justify-center gap-4">
+            <h1 className="text-2xl font-bold mb-5 text-center">Login</h1>{" "}
+            <div className="w-12 h-12">
+              <img
+                className=""
+                src={Logo}
+                alt="Login Image"
+              />
+            </div>
+          </div>
+          <Form
+            name="normal_login"
+            className="login-form"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
           >
-            Forgot Password?
-          </Link>
-        </span>
+            <Form.Item
+              name="email"
+              rules={[{ required: true, message: "Please input your email!" }]}
+            >
+              <Input
+                prefix={<UserOutlined className="site-form-item-icon" />}
+                placeholder="Email"
+              />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              rules={[
+                { required: true, message: "Please input your Password!" },
+              ]}
+            >
+              <Input.Password
+                prefix={<LockOutlined className="site-form-item-icon" />}
+                placeholder="Password"
+              />
+            </Form.Item>
+
+            <Form.Item>
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="w-full bg-primary"
+              >
+                Log in
+              </Button>
+            </Form.Item>
+          </Form>
+          <div className="text-center mt-2">
+            <Link
+              href="/forgot-password"
+              className="text-slate-700 hover:text-blue-500 hover:underline"
+            >
+              Forgot Password?
+            </Link>
+          </div>
+        </div>
       </div>
 
-      <h1>
+      <h1 className="mt-5">
         Developed by{" "}
         <Link
           className="font-bold text-black mt-10"

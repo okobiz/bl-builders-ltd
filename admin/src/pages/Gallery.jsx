@@ -6,7 +6,6 @@ import {
   message,
   Modal,
   Popconfirm,
-  Space,
   Switch,
   Table,
   Upload,
@@ -110,7 +109,7 @@ const Gallery = () => {
   const handleEditGallery = (gallery) => {
     setEditingGallery(gallery);
     setIsModalVisible(true);
-    console.log(gallery, "gallary from handle edit gallary......");
+
 
     form.setFieldsValue({
       ...gallery,
@@ -156,12 +155,12 @@ const Gallery = () => {
       key: "description",
       render: (text) => <span>{truncateText(text, 50)}</span>,
     },
-    {
-      title: "Details",
-      dataIndex: "detail",
-      key: "detail",
-      render: (text) => <span>{truncateText(text, 50)}</span>,
-    },
+    // {
+    //   title: "Details",
+    //   dataIndex: "detail",
+    //   key: "detail",
+    //   render: (text) => <span>{truncateText(text, 50)}</span>,
+    // },
     {
       title: "Events",
       dataIndex: "event",
@@ -181,13 +180,13 @@ const Gallery = () => {
                   <span className="font-semibold">{item.eventDetails}</span>
                 </p>
               </div>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
                 {item?.image?.map((img, index) => (
                   <img
                     src={API_BASE_URL + img}
                     alt={img}
                     key={index}
-                    className="rounded"
+                    className="rounded w-full h-24 object-cover"
                   />
                 ))}
               </div>
@@ -254,9 +253,9 @@ const Gallery = () => {
           <Form.Item name="title" label="Title" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="detail" label="Details">
+          {/* <Form.Item name="detail" label="Details">
             <Input />
-          </Form.Item>
+          </Form.Item> */}
           <Form.Item name="description" label="Description">
             <Input />
           </Form.Item>
@@ -268,7 +267,7 @@ const Gallery = () => {
             {(fields, { add, remove }) => (
               <>
                 {fields.map(({ key, name, ...restField }, index) => (
-                  <Space
+                  <div
                     className="w-full overflow-x-auto"
                     key={key}
                     align="baseline"
@@ -317,7 +316,7 @@ const Gallery = () => {
                       onClick={() => remove(name)}
                       className="text-rose-400 hover:text-rose-500"
                     />
-                  </Space>
+                  </div>
                 ))}
                 <Form.Item>
                   <Button

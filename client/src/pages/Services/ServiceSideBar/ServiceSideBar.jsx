@@ -1,9 +1,13 @@
-import { useGetServicesByPaginationQuery } from "../../../redux/features/services/serviceApi";
+import { useGetServicesByPaginationQuery, useGetSingleServicesQuery } from "../../../redux/features/services/serviceApi";
 import { MdLocalPhone } from "react-icons/md";
 import ServiceContact from "../ServiceContact/ServiceContact";
+import { useParams } from "react-router-dom";
 
 const ServiceSideBar = () => {
-  const { data: services } = useGetServicesByPaginationQuery("");
+  const id = useParams();
+
+  const { data: service } = useGetSingleServicesQuery(id);
+
 
   return (
     <div>
@@ -45,7 +49,7 @@ const ServiceSideBar = () => {
         </div>
 
         <div className="mt-4">
-          <ServiceContact></ServiceContact>
+          <ServiceContact productID={service?.data?.productID}/>
         </div>
       </div>
     </div>

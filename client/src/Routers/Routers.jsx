@@ -11,6 +11,8 @@ import NotFound from "../pages/NotFound/NotFound";
 import { About } from "../pages/Profile/About";
 import LandPage from "../pages/Land/Land";
 import ApartmentsPage from "../pages/Apartments/Apartments";
+import SignUp from "../Layout/SignUp";
+import Login from "../Layout/Login";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,14 @@ export const router = createBrowserRouter([
         children: [
           { path: "", element: <ServiceDetails /> }, // Relative path
         ],
+      },
+         {
+        path: "/signUp",
+        element: <SignUp/>,
+      },
+        {
+        path: "/login",
+        element: <Login/>,
       },
     ],
   },

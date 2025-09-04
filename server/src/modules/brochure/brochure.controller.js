@@ -5,12 +5,12 @@ const BrochureService = require("./brochure.service.js");
 
 class BrochureController {
   createBrochure = withTransaction(async (req, res, next, session) => {
-    const payload = {
-      title: req.body.title,
-      description: req.body.description,
-      companyIntroduction: req.body.companyIntroduction,
-      successStory: req.body.successStory,
-    };
+    const { title, description, successStory } = req.body;
+
+    const file = req.files?.[0]; // single file
+    if (!file) throw new Error("image is required");
+
+    const payload = { title, description, successStory, file };
 
     const brochureResult = await BrochureService.createBrochure(
       payload,
@@ -53,26 +53,19 @@ class BrochureController {
   });
 
   updateBrochure = catchError(async (req, res) => {
-
     const id = req.params.id;
-    const payloadFiles = {
-      files: req?.files,
-    };
+    const files = req.files || [];
 
     const payload = {
       title: req.body.title,
       description: req.body.description,
-      companyIntroduction: req.body.companyIntroduction,
       successStory: req.body.successStory,
     };
 
-    const brochure = await BrochureService.updateBrochure(
-      id,
-      payload
-    );
+    const brochure = await BrochureService.updateBrochure(id, payload, files);
     const resDoc = responseHandler(
       201,
-      "Brochure Update successfully",
+      "Brochure Updated successfully",
       brochure
     );
     res.status(resDoc.statusCode).json(resDoc);

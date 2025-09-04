@@ -10,9 +10,6 @@ class ContactService extends BaseService {
   }
 
   async createContact(payload) {
-    // const { name, phone, email, message } = payload;
-    // if (!title || !details) throw new Error("title and details are required");
-
     const contactData = await this.#repository.createContact(payload);
     return contactData;
   }

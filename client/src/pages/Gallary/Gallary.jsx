@@ -11,44 +11,50 @@ export const GalleryPage = () => {
   const { data: galleries } = useGetImagesQuery();
 
   const [activeTab, setActiveTab] = useState("images");
+  const [showFullDescription, setShowFullDescription] = useState({});
+  const [showFullDetails, setShowFullDetails] = useState({});
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [showFullDescription, setShowFullDescription] = useState(false);
-  const [showFullDatails, setShowFullDatails] = useState(false);
   return (
     <div>
       <TabTitle title={"Gallery"} />
       <PagesHead title="Our Gallery" subTitle="Our Gallery" />
-      <div className="container">
-        {galleries?.data?.map((gallery) => {
+
+      <div className="py-8 md:pb-16 pt-4  mx-auto overflow-hidden px-5 md:w-[90%] space-y-12">
+        {/* {galleries?.data?.map((gallery) => {
           const description = gallery?.description || "gallery description";
           const truncatedDescription = description.slice(0, 200);
           const detail = gallery?.detail || "gallery description";
           const truncatedDetail = detail.slice(0, 200);
+
           return (
-            <div key={gallery._id}>
+            <div key={gallery._id} className="space-y-6">
               <div className="grid lg:grid-cols-2 gap-8">
                 <div>
                   <h2 className="text-lg font-semibold text-[#244436]">
                     {gallery.title}
                   </h2>
-                  {/* <p className="mt-4 leading-relaxed text-[#262626]/80">
-                    {gallery.description}
-                  </p> */}
-                  <div className="cursor-pointer group">
-                    <p className="mt-4 leading-relaxed text-[#262626]/80">
-                      {showFullDescription ? description : truncatedDescription}
+
+                  <div className="cursor-pointer group mt-4">
+                    <p className="leading-relaxed text-[#262626]/80">
+                      {showFullDescription[gallery._id]
+                        ? description
+                        : truncatedDescription}
                     </p>
                     {description.length > 200 && (
                       <button
                         onClick={() =>
-                          setShowFullDescription(!showFullDescription)
+                          setShowFullDescription((prev) => ({
+                            ...prev,
+                            [gallery._id]: !prev[gallery._id],
+                          }))
                         }
-                        className="text-[#244436]  group-hover:opacity-100 duration-300"
+                        className="text-[#244436] group-hover:opacity-100 duration-300 mt-1"
                       >
-                        {showFullDescription ? (
+                        {showFullDescription[gallery._id] ? (
                           <div className="flex items-center gap-1">
                             <BsBoxArrowInDownRight /> less
                           </div>
@@ -61,17 +67,25 @@ export const GalleryPage = () => {
                     )}
                   </div>
                 </div>
+
                 <div>
-                  <div className="cursor-pointer group">
-                    <p className="mt-4 leading-relaxed text-[#262626]/80">
-                      {showFullDatails ? detail : truncatedDetail}
+                  <div className="cursor-pointer group mt-4">
+                    <p className="leading-relaxed text-[#262626]/80">
+                      {showFullDetails[gallery._id]
+                        ? detail
+                        : truncatedDetail}
                     </p>
-                    {description.length > 200 && (
+                    {detail.length > 200 && (
                       <button
-                        onClick={() => setShowFullDatails(!showFullDatails)}
-                        className="text-[#244436]  group-hover:opacity-100 duration-300"
+                        onClick={() =>
+                          setShowFullDetails((prev) => ({
+                            ...prev,
+                            [gallery._id]: !prev[gallery._id],
+                          }))
+                        }
+                        className="text-[#244436] group-hover:opacity-100 duration-300 mt-1"
                       >
-                        {showFullDatails ? (
+                        {showFullDetails[gallery._id] ? (
                           <div className="flex items-center gap-1">
                             <BsBoxArrowInDownRight /> less
                           </div>
@@ -87,8 +101,9 @@ export const GalleryPage = () => {
               </div>
             </div>
           );
-        })}
+        })} */}
 
+        {/* Tabs */}
         <div className="mt-12">
           <div className="xl:px-40 lg:px-40 md:px-30">
             <div className="relative bg-[#F5FDF8] border rounded-full w-full flex items-center">
@@ -117,6 +132,7 @@ export const GalleryPage = () => {
             </div>
           </div>
 
+          {/* Tab Content */}
           <div className="mt-16">
             {activeTab === "images" && (
               <motion.div
@@ -126,11 +142,10 @@ export const GalleryPage = () => {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <div>
-                  <GalleryImages></GalleryImages>
-                </div>
+                <GalleryImages galleries={galleries?.data} />
               </motion.div>
             )}
+
             {activeTab === "videos" && (
               <motion.div
                 key="videos"
@@ -139,9 +154,7 @@ export const GalleryPage = () => {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.3 }}
               >
-                <div>
-                  <GalleryVideos></GalleryVideos>
-                </div>
+                <GalleryVideos galleries={galleries?.data} />
               </motion.div>
             )}
           </div>

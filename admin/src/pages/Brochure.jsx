@@ -6,14 +6,17 @@ import {
   Modal,
   Popconfirm,
   Table,
+  Upload,
 } from "antd";
 import {
   EditOutlined,
   DeleteOutlined,
   PlusSquareOutlined,
+  UploadOutlined,
 } from "@ant-design/icons";
 import useBrochureActions from "../hooks/useBrochureActions";
 import { useState } from "react";
+import { API_BASE_URL } from "../shared/config";
 
 const Brochure = () => {
   const { brochures, loading, createBrochure, updateBrochure, deleteBrochure } =
@@ -21,19 +24,28 @@ const Brochure = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [form] = Form.useForm();
   const [editingBrochure, setEditingBrochure] = useState(null);
+  const [fileList, setFileList] = useState([]);
 
   // Create or Update Brochure
   const handleCreateBrochure = async (values) => {
     try {
+      const formData = new FormData();
+      formData.append("title", values.title);
+      formData.append("description", values.description);
+      formData.append("successStory", values.successStory);
+      if (fileList[0]?.originFileObj) {
+        formData.append("image", fileList[0].originFileObj);
+      }
+
       if (editingBrochure) {
-        await updateBrochure(editingBrochure._id, values);
+        await updateBrochure(editingBrochure._id, formData);
         setEditingBrochure(null);
       } else {
-        await createBrochure(values);
+        await createBrochure(formData);
       }
       setIsModalVisible(false);
       form.resetFields();
-    } catch (error) {
+    } catch {
       message.error("Failed to save brochure");
     }
   };
@@ -42,7 +54,24 @@ const Brochure = () => {
   const handleEditBrochure = (brochure) => {
     setEditingBrochure(brochure);
     setIsModalVisible(true);
-    form.setFieldsValue(brochure);
+    form.setFieldsValue({
+      title: brochure.title,
+      description: brochure.description,
+      successStory: brochure.successStory,
+    });
+
+    setFileList(
+      brochure.image
+        ? [
+            {
+              uid: "-1",
+              name: brochure.image.split("/").pop(),
+              status: "done",
+              url: brochure.image,
+            },
+          ]
+        : []
+    );
   };
 
   // Delete Brochure
@@ -61,16 +90,25 @@ const Brochure = () => {
     form.resetFields();
   };
 
-  // Table columns (Schema অনুযায়ী)
   const columns = [
     { title: "Heading", dataIndex: "title", key: "title" },
     { title: "Description", dataIndex: "description", key: "description" },
-    {
-      title: "Company Introduction",
-      dataIndex: "companyIntroduction",
-      key: "companyIntroduction",
-    },
     { title: "Success Story", dataIndex: "successStory", key: "successStory" },
+    {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (text, record) =>
+        record.image ? (
+          <img
+            src={`${API_BASE_URL}${record.image}`}
+            alt={record.title}
+            style={{ width: 80, height: 50, objectFit: "cover" }}
+          />
+        ) : (
+          "No Image"
+        ),
+    },
     {
       title: "Actions",
       key: "actions",
@@ -110,7 +148,7 @@ const Brochure = () => {
       />
 
       <Modal
-        title={editingBrochure ? "Edit Brochure" : "Create Brochure"}
+        title={editingBrochure ? "Edit Profile" : "Create Profile"}
         open={isModalVisible}
         onCancel={handleModalCancel}
         footer={null}
@@ -122,14 +160,31 @@ const Brochure = () => {
           <Form.Item name="description" label="Description">
             <Input.TextArea rows={3} />
           </Form.Item>
-          <Form.Item name="companyIntroduction" label="Company Introduction">
-            <Input.TextArea rows={3} />
-          </Form.Item>
           <Form.Item name="successStory" label="Success Story">
             <Input.TextArea rows={3} />
           </Form.Item>
+          <Form.Item
+            name="image"
+            label="Upload Service Image"
+            valuePropName="fileList"
+            getValueFromEvent={(e) =>
+              Array.isArray(e) ? e : e?.fileList || []
+            }
+            rules={[
+              { required: !editingBrochure, message: "Image is required" },
+            ]}
+          >
+            <Upload
+              listType="picture"
+              beforeUpload={() => false}
+              fileList={fileList}
+              onChange={({ fileList: newFileList }) => setFileList(newFileList)}
+            >
+              <Button icon={<UploadOutlined />}>Upload</Button>
+            </Upload>
+          </Form.Item>
           <Button type="primary" htmlType="submit" loading={loading}>
-            {editingBrochure ? "Update Brochure" : "Create Brochure"}
+            {editingBrochure ? "Update Profile" : "Create Profile"}
           </Button>
         </Form>
       </Modal>
